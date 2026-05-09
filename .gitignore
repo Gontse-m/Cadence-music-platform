@@ -1,0 +1,33 @@
+# Environment variables — NEVER commit these (contain Pinata/ACRCloud/ElevenLabs/QuickNode keys)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Implementation plan — contains live API keys, must not be pushed
+cadence-implementation-plan.md
+
+# Local source assets (user's working files; deliverables live in public/ and branding/)
+assets/
+
+# Dev / build artifacts
+node_modules/
+.next/
+out/
+dist/
+dev.log
+tsconfig.tsbuildinfo
+
+# Anchor build artifacts (contain keypairs)
+contracts/target/
+contracts/.anchor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
