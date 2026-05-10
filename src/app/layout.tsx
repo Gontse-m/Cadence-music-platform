@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { WalletProvider } from '@/providers/WalletProvider'
 import { Navbar } from '@/components/layout/Navbar'
@@ -10,10 +10,17 @@ export const metadata: Metadata = {
   description: 'Stream indie music on Solana. First listen free, every replay sends a micropayment straight to the artist.',
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#4D1A22',
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="font-mael text-gray-900 min-h-screen flex flex-col">
+      <body className="font-mael text-gray-900 min-h-screen flex flex-col overflow-x-hidden">
         <WalletProvider>
           <Navbar />
           <main className="flex-1 flex flex-col">{children}</main>

@@ -93,27 +93,27 @@ export default function SetupPage() {
         style={{ backgroundImage: "url('/backgrounds/home.jpg')" }}
         aria-hidden
       />
-      <div className="pt-24 px-6 max-w-4xl mx-auto pb-24">
-        <h1 className="font-mael text-5xl font-bold text-white mb-3 [text-shadow:0_0_24px_rgba(114,47,55,0.95),0_0_48px_rgba(114,47,55,0.7),0_2px_8px_rgba(0,0,0,0.6)]">
+      <div className="pt-20 sm:pt-24 px-4 sm:px-6 max-w-4xl mx-auto pb-20 sm:pb-24">
+        <h1 className="font-mael text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 [text-shadow:0_0_24px_rgba(114,47,55,0.95),0_0_48px_rgba(114,47,55,0.7),0_2px_8px_rgba(0,0,0,0.6)]">
           Get started with Cadence
         </h1>
-        <p className="text-white text-lg mb-12 font-medium [text-shadow:0_0_12px_rgba(114,47,55,0.85),0_2px_6px_rgba(0,0,0,0.7)]">
+        <p className="text-white text-base sm:text-lg mb-10 sm:mb-12 font-medium [text-shadow:0_0_12px_rgba(114,47,55,0.85),0_2px_6px_rgba(0,0,0,0.7)]">
           Install a wallet, switch to devnet, and start streaming in about three minutes. No real money, no credit card.
         </p>
 
         {/* Steps */}
-        <div className="space-y-6 mb-16">
+        <div className="space-y-5 sm:space-y-6 mb-12 sm:mb-16">
           {steps.map(({ n, title, body, cta, detail }) => (
             <div
               key={n}
-              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8"
+              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-8"
             >
-              <div className="flex items-start gap-6">
-                <div className="font-mael text-5xl font-bold text-mustard drop-shadow shrink-0">
+              <div className="flex items-start gap-4 sm:gap-6">
+                <div className="font-mael text-3xl sm:text-5xl font-bold text-mustard drop-shadow shrink-0">
                   {n}
                 </div>
-                <div className="flex-1">
-                  <h2 className="font-mael text-2xl font-bold text-white mb-2 drop-shadow-lg">
+                <div className="flex-1 min-w-0">
+                  <h2 className="font-mael text-xl sm:text-2xl font-bold text-white mb-2 drop-shadow-lg">
                     {title}
                   </h2>
                   <p className="text-white/90 mb-4 drop-shadow">{body}</p>
@@ -148,14 +148,14 @@ export default function SetupPage() {
         </div>
 
         {/* Precautions */}
-        <div className="mb-16">
-          <h2 className="font-mael text-3xl font-bold text-white mb-2 drop-shadow-lg">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="font-mael text-2xl sm:text-3xl font-bold text-white mb-2 drop-shadow-lg">
             Precautions
           </h2>
-          <p className="text-white/85 mb-8 drop-shadow">
+          <p className="text-white/85 mb-6 sm:mb-8 drop-shadow">
             Wallets are powerful. A few habits keep your funds and identity safe.
           </p>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             {precautions.map(({ title, body }) => (
               <div
                 key={title}

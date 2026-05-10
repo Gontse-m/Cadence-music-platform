@@ -38,11 +38,11 @@ export default function DashboardPage() {
   return (
     <>
       <Background />
-      <div className="pt-24 px-6 max-w-5xl mx-auto w-full pb-24">
-        <h1 className="font-mael text-4xl font-bold text-white mb-2 drop-shadow-lg">Your dashboard</h1>
-        <p className="text-white/80 mb-10 text-sm font-mono drop-shadow">{publicKey?.toBase58()}</p>
+      <div className="pt-20 sm:pt-24 px-4 sm:px-6 max-w-5xl mx-auto w-full pb-20 sm:pb-24">
+        <h1 className="font-mael text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-lg">Your dashboard</h1>
+        <p className="text-white/80 mb-8 sm:mb-10 text-xs sm:text-sm font-mono drop-shadow break-all">{publicKey?.toBase58()}</p>
 
-        <div className="grid grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-12">
           {[
             { label: 'Total earnings', value: '0.00 SOL' },
             { label: 'Total streams', value: '0' },
@@ -50,10 +50,10 @@ export default function DashboardPage() {
           ].map(({ label, value }) => (
             <div
               key={label}
-              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6"
+              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-5 sm:p-6"
             >
               <p className="text-white/70 text-xs mb-1 drop-shadow">{label}</p>
-              <p className="font-mael text-3xl font-bold text-white drop-shadow-lg">{value}</p>
+              <p className="font-mael text-2xl sm:text-3xl font-bold text-white drop-shadow-lg">{value}</p>
             </div>
           ))}
         </div>

@@ -20,11 +20,11 @@ export default function DiscoverPage() {
         style={{ backgroundImage: "url('/backgrounds/discover.jpg')" }}
         aria-hidden
       />
-      <div className="pt-24 px-6 max-w-6xl mx-auto w-full pb-24">
-        <h1 className="font-mael text-6xl font-bold text-white mb-3 [text-shadow:0_0_18px_rgba(114,47,55,0.95),0_0_36px_rgba(114,47,55,0.7),0_2px_8px_rgba(0,0,0,0.6)]">
+      <div className="pt-20 sm:pt-24 px-4 sm:px-6 max-w-6xl mx-auto w-full pb-20 sm:pb-24">
+        <h1 className="font-mael text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2 sm:mb-3 [text-shadow:0_0_18px_rgba(114,47,55,0.95),0_0_36px_rgba(114,47,55,0.7),0_2px_8px_rgba(0,0,0,0.6)]">
           Discover
         </h1>
-        <p className="text-white text-lg mb-10 font-semibold [text-shadow:0_0_12px_rgba(114,47,55,0.85),0_0_24px_rgba(114,47,55,0.55),0_2px_6px_rgba(0,0,0,0.7)]">
+        <p className="text-white text-base sm:text-lg mb-8 sm:mb-10 font-semibold [text-shadow:0_0_12px_rgba(114,47,55,0.85),0_0_24px_rgba(114,47,55,0.55),0_2px_6px_rgba(0,0,0,0.7)]">
           First listen is always free. Find your next favourite artist.
         </p>
 
@@ -33,7 +33,7 @@ export default function DiscoverPage() {
             No tracks yet — be the first to upload.
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
             {tracks.map(track => (
               <TrackCard key={track.id} track={track} />
             ))}

@@ -16,13 +16,11 @@ export function PlayerBar() {
   const [error, setError] = useState<string | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // Reset paid badge when the track changes
   useEffect(() => {
     setIsPaid(false)
     setError(null)
   }, [currentTrack?.id])
 
-  // Sync the <audio> element to play/pause state
   useEffect(() => {
     const el = audioRef.current
     if (!el) return
@@ -48,35 +46,48 @@ export function PlayerBar() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-burgundy text-white px-6 py-4 flex items-center justify-between z-50 border-t border-burgundy-dark">
+    <div className="fixed bottom-0 left-0 right-0 bg-burgundy text-white px-3 sm:px-6 py-3 sm:py-4 z-50 border-t border-burgundy-dark">
       <audio
         ref={audioRef}
         src={currentTrack.audioUrl}
         onEnded={() => setIsPlaying(false)}
         preload="auto"
       />
-      <div className="flex items-center gap-4">
-        <div>
-          <p className="font-mael font-semibold text-sm">{currentTrack.title}</p>
-          <p className="text-white/60 text-xs">{currentTrack.artist}</p>
+
+      {/* Mobile-first row layout: track info (truncates) | play | price (hidden on xs) */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
+          <div className="min-w-0 flex-1">
+            <p className="font-mael font-semibold text-sm truncate">{currentTrack.title}</p>
+            <p className="text-white/60 text-xs truncate">{currentTrack.artist}</p>
+          </div>
+          <div className="hidden sm:block">
+            <StreamBadge isPaid={isPaid} playCount={playCount} />
+          </div>
         </div>
-        <StreamBadge isPaid={isPaid} playCount={playCount} />
+
+        <button
+          onClick={onPlayPause}
+          aria-label={isPlaying ? 'Pause' : 'Play'}
+          className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-mustard flex items-center justify-center hover:bg-mustard-dark transition-colors shrink-0 text-base"
+        >
+          {isPlaying ? '⏸' : '▶'}
+        </button>
+
+        <div className="hidden md:block text-xs text-white/60 shrink-0">
+          {currentTrack.pricePerStream / 1_000_000_000} SOL / stream
+        </div>
       </div>
 
-      <button
-        onClick={onPlayPause}
-        className="w-10 h-10 rounded-full bg-mustard flex items-center justify-center hover:bg-mustard-dark transition-colors"
-      >
-        {isPlaying ? '⏸' : '▶'}
-      </button>
+      {/* Mobile: badge + price live on a second row when relevant */}
+      <div className="flex items-center justify-between mt-1.5 sm:hidden text-[11px] text-white/60">
+        <StreamBadge isPaid={isPaid} playCount={playCount} />
+        <span>{currentTrack.pricePerStream / 1_000_000_000} SOL / stream</span>
+      </div>
 
       {error && (
-        <p className="text-red-300 text-xs absolute bottom-16 left-6">{error}</p>
+        <p className="text-red-300 text-xs mt-2 sm:mt-0 sm:absolute sm:bottom-full sm:left-6">{error}</p>
       )}
-
-      <div className="text-xs text-white/60">
-        {currentTrack.pricePerStream / 1_000_000_000} SOL / stream
-      </div>
     </div>
   )
 }

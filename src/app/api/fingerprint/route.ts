@@ -29,7 +29,11 @@ export async function POST(req: NextRequest) {
     form.append('sample_bytes', String(buffer.length))
     form.append('timestamp', timestamp)
 
-    const response = await axios.post(`https://${host}${uri}`, form)
+    const response = await axios.post(`https://${host}${uri}`, form, {
+      timeout: 45_000,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity,
+    })
     const result = response.data
 
     const isDuplicate = result.status?.code === 0
