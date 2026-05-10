@@ -97,9 +97,21 @@ export default function SetupPage() {
         <h1 className="font-mael text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 [text-shadow:0_0_24px_rgba(114,47,55,0.95),0_0_48px_rgba(114,47,55,0.7),0_2px_8px_rgba(0,0,0,0.6)]">
           Get started with Cadence
         </h1>
-        <p className="text-white text-base sm:text-lg mb-10 sm:mb-12 font-medium [text-shadow:0_0_12px_rgba(114,47,55,0.85),0_2px_6px_rgba(0,0,0,0.7)]">
+        <p className="text-white text-base sm:text-lg mb-6 font-medium [text-shadow:0_0_12px_rgba(114,47,55,0.85),0_2px_6px_rgba(0,0,0,0.7)]">
           Install a wallet, switch to devnet, and start streaming in about three minutes. No real money, no credit card.
         </p>
+
+        {/* Mobile callout — links to the mobile section below */}
+        <a
+          href="#mobile"
+          className="block bg-mustard/20 border border-mustard/50 backdrop-blur-md rounded-xl px-5 py-4 mb-10 sm:mb-12 hover:bg-mustard/30 transition-colors"
+        >
+          <p className="text-white text-sm sm:text-base">
+            <span className="font-bold text-mustard">📱 On a phone?</span>{' '}
+            The browser-extension flow doesn&apos;t apply. Skip to the{' '}
+            <span className="underline">mobile guide below</span> — connecting via Phantom mobile is a different shape.
+          </p>
+        </a>
 
         {/* Steps */}
         <div className="space-y-5 sm:space-y-6 mb-12 sm:mb-16">
@@ -145,6 +157,77 @@ export default function SetupPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Mobile guide */}
+        <div id="mobile" className="mb-12 sm:mb-16 scroll-mt-24">
+          <h2 className="font-mael text-2xl sm:text-3xl font-bold text-white mb-2 drop-shadow-lg">
+            Connecting on mobile
+          </h2>
+          <p className="text-white/85 mb-6 sm:mb-8 drop-shadow text-sm sm:text-base">
+            Mobile browsers don&apos;t have wallet extensions. You have two options — the in-app browser is the more reliable one.
+          </p>
+
+          {/* Option A — recommended */}
+          <div className="bg-mustard/15 backdrop-blur-md border border-mustard/40 rounded-2xl p-5 sm:p-7 mb-4">
+            <div className="flex items-start gap-3 mb-3">
+              <span className="bg-mustard text-burgundy-darker text-xs font-bold px-2 py-1 rounded-full shrink-0">
+                RECOMMENDED
+              </span>
+              <h3 className="font-mael text-lg sm:text-xl font-bold text-white drop-shadow">
+                Option A — open Cadence inside the Phantom mobile app
+              </h3>
+            </div>
+            <p className="text-white/85 text-sm leading-relaxed mb-3">
+              Phantom mobile has a built-in dApp browser. When you visit Cadence from inside it, your wallet is already connected — no popups, no app-switching.
+            </p>
+            <ol className="list-decimal list-inside space-y-1.5 text-white/85 text-sm leading-relaxed mb-4">
+              <li>Install Phantom from the App Store (iOS) or Google Play (Android).</li>
+              <li>Open Phantom → tap the <strong>globe / browser icon</strong> in the bottom navigation.</li>
+              <li>Type the Cadence URL into the address bar (or paste it).</li>
+              <li>The page loads with your wallet auto-connected. Hit play to stream.</li>
+            </ol>
+            <a
+              href="https://phantom.app/download"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block bg-burgundy text-white px-5 py-2 rounded-full font-medium text-sm hover:bg-burgundy-dark transition-colors shadow-[0_0_24px_rgba(114,47,55,0.5)]"
+            >
+              Download Phantom mobile →
+            </a>
+          </div>
+
+          {/* Option B — deep link */}
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-7 mb-4">
+            <h3 className="font-mael text-lg sm:text-xl font-bold text-white mb-3 drop-shadow">
+              Option B — Safari / Chrome with Phantom deep link
+            </h3>
+            <p className="text-white/85 text-sm leading-relaxed mb-3">
+              If you want to use your normal mobile browser, the wallet adapter will hand off to the Phantom app via a deep link.
+            </p>
+            <ol className="list-decimal list-inside space-y-1.5 text-white/85 text-sm leading-relaxed">
+              <li>Make sure the Phantom mobile app is installed and unlocked.</li>
+              <li>Open Cadence in Safari (iOS) or Chrome (Android).</li>
+              <li>Tap the hamburger menu → tap <strong>Connect wallet</strong>.</li>
+              <li>Pick Phantom from the wallet picker. Your phone switches to the Phantom app.</li>
+              <li>Approve the connection in Phantom.</li>
+              <li>Tap your browser tab to come back — you&apos;ll see your wallet address in the navbar.</li>
+            </ol>
+          </div>
+
+          {/* Mobile-specific devnet + faucet */}
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-7">
+            <h3 className="font-mael text-lg sm:text-xl font-bold text-white mb-3 drop-shadow">
+              Switching to devnet + getting test SOL on mobile
+            </h3>
+            <ol className="list-decimal list-inside space-y-1.5 text-white/85 text-sm leading-relaxed">
+              <li>Open the Phantom app → tap the <strong>profile icon</strong> (bottom-right).</li>
+              <li>Tap the <strong>gear icon</strong> → <strong>Developer Settings</strong> → <strong>Testnet Mode</strong> → toggle on.</li>
+              <li>Back on the home screen, tap the network selector and choose <strong>Solana Devnet</strong>.</li>
+              <li>Tap your wallet address at the top of the Phantom screen to copy it.</li>
+              <li>Open <a href="https://faucet.solana.com" target="_blank" rel="noreferrer" className="underline text-mustard hover:text-mustard-light">faucet.solana.com</a> in your mobile browser, paste the address, request 1 SOL.</li>
+            </ol>
+          </div>
         </div>
 
         {/* Precautions */}
@@ -198,6 +281,24 @@ export default function SetupPage() {
               <dt className="font-bold text-mustard mb-1">Replay fails with &quot;Transaction simulation failed&quot;</dt>
               <dd className="text-white/85 leading-relaxed">
                 Out of devnet SOL. Top up at faucet.solana.com.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-bold text-mustard mb-1">Mobile: tapping &quot;Connect wallet&quot; doesn&apos;t open Phantom</dt>
+              <dd className="text-white/85 leading-relaxed">
+                Make sure the Phantom app is installed and unlocked first. Some mobile browsers (notably iOS Safari in private mode) block deep links — switch to a normal Safari tab, or use the Phantom in-app browser instead.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-bold text-mustard mb-1">Mobile: I approved in Phantom but my browser still says disconnected</dt>
+              <dd className="text-white/85 leading-relaxed">
+                Manually switch back to your browser tab. iOS in particular doesn&apos;t always auto-return after a deep link. If the address still doesn&apos;t show, refresh the page once.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-bold text-mustard mb-1">Mobile: audio doesn&apos;t play automatically</dt>
+              <dd className="text-white/85 leading-relaxed">
+                Mobile browsers block autoplay. Tap the play button in the persistent player at the bottom of the screen — that counts as a user gesture and unlocks audio.
               </dd>
             </div>
           </dl>
