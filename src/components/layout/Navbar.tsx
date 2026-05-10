@@ -26,6 +26,9 @@ export function Navbar() {
         <Link href="/dashboard" className="text-white hover:text-mustard transition-colors text-sm font-bold tracking-wide">
           Dashboard
         </Link>
+        <Link href="/setup" className="text-white hover:text-mustard transition-colors text-sm font-bold tracking-wide">
+          Setup
+        </Link>
         <WalletButton />
       </div>
     </nav>

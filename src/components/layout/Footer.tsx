@@ -23,6 +23,7 @@ export function Footer() {
             <li><Link href="/discover" className="hover:text-mustard transition-colors">Discover</Link></li>
             <li><Link href="/upload" className="hover:text-mustard transition-colors">Upload</Link></li>
             <li><Link href="/dashboard" className="hover:text-mustard transition-colors">Artist dashboard</Link></li>
+            <li><Link href="/setup" className="hover:text-mustard transition-colors">Wallet setup guide</Link></li>
           </ul>
         </div>
 

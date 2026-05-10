@@ -9,6 +9,12 @@
 # Implementation plan — contains live API keys, must not be pushed
 cadence-implementation-plan.md
 
+# Demo execution strategy — internal cue card, not for public repo
+DEMO.md
+
+# Temporary Vercel env paste file (delete after pasting into Vercel dashboard)
+vercel-env-paste.txt
+
 # Local source assets (user's working files; deliverables live in public/ and branding/)
 assets/
 
