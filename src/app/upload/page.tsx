@@ -4,6 +4,8 @@ import { useCallback, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useTracksStore } from '@/store/tracksStore'
+import type { Track } from '@/types'
 
 type Status = 'idle' | 'checking' | 'uploading' | 'transcribing' | 'narrating' | 'done' | 'error' | 'cancelled'
 
@@ -46,6 +48,7 @@ export default function UploadPage() {
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
   const abortRef = useRef<AbortController | null>(null)
+  const addUploadedTrack = useTracksStore((s) => s.addUploadedTrack)
 
   const onDrop = useCallback((files: File[]) => {
     if (files[0]) setAudioFile(files[0])
@@ -114,6 +117,22 @@ export default function UploadPage() {
         throw new Error(`IPFS upload failed: ${uploadJson.error || `HTTP ${uploadRes.status}`}`)
       }
       const { ipfsHash, audioUrl } = uploadJson
+
+      // Persist the new track locally so it shows up on /discover and /dashboard.
+      const priceSol = parseFloat(form.pricePerStream || '0') || 0
+      const newTrack: Track = {
+        id: ipfsHash,
+        title: form.title || 'Untitled',
+        artist: publicKey.toBase58().slice(0, 4) + '…' + publicKey.toBase58().slice(-4),
+        artistWallet: publicKey.toBase58(),
+        ipfsHash,
+        audioUrl,
+        pricePerStream: Math.round(priceSol * 1_000_000_000), // SOL → lamports
+        streamCount: 0,
+        genre: form.genre || undefined,
+        uploadedAt: new Date().toISOString(),
+      }
+      addUploadedTrack(newTrack)
 
       // Step 3 — Transcribe (non-fatal — instrumental tracks return empty lyrics)
       setStatus('transcribing')

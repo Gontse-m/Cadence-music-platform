@@ -1,17 +1,30 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { TrackCard } from '@/components/ui/TrackCard'
 import { useTracksStore } from '@/store/tracksStore'
 
 export default function DiscoverPage() {
-  const { tracks, setTracks } = useTracksStore()
+  const tracks = useTracksStore((s) => s.tracks)
+  const uploadedTracks = useTracksStore((s) => s.uploadedTracks)
+  const setTracks = useTracksStore((s) => s.setTracks)
 
   useEffect(() => {
     fetch('/api/tracks')
       .then(r => r.json())
       .then(data => setTracks(data.tracks))
   }, [setTracks])
+
+  // User-uploaded tracks first (newest at top), then the demo catalog.
+  const allTracks = useMemo(() => {
+    const seen = new Set<string>()
+    const merged = [...uploadedTracks, ...tracks].filter((t) => {
+      if (seen.has(t.id)) return false
+      seen.add(t.id)
+      return true
+    })
+    return merged
+  }, [tracks, uploadedTracks])
 
   return (
     <>
@@ -28,13 +41,13 @@ export default function DiscoverPage() {
           First listen is always free. Find your next favourite artist.
         </p>
 
-        {tracks.length === 0 ? (
+        {allTracks.length === 0 ? (
           <div className="text-center text-white/70 py-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
             No tracks yet — be the first to upload.
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-            {tracks.map(track => (
+            {allTracks.map(track => (
               <TrackCard key={track.id} track={track} />
             ))}
           </div>

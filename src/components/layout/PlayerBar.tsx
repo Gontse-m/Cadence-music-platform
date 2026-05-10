@@ -15,12 +15,18 @@ export function PlayerBar() {
   const [isPaid, setIsPaid] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  // True when the next play action should run handlePlay (fraud + pay gate).
+  // False when the user is just resuming from a mid-track pause.
+  const [needsGate, setNeedsGate] = useState(true)
 
+  // Reset everything when the user picks a different track.
   useEffect(() => {
     setIsPaid(false)
     setError(null)
+    setNeedsGate(true)
   }, [currentTrack?.id])
 
+  // Sync the <audio> element to play/pause state
   useEffect(() => {
     const el = audioRef.current
     if (!el) return
@@ -34,15 +40,25 @@ export function PlayerBar() {
 
   const onPlayPause = async () => {
     if (!isPlaying) {
-      const result = await handlePlay(currentTrack)
-      if (!result.allowed) {
-        setError(result.error || 'Cannot play track.')
-        return
+      // Only gate / pay on a fresh play. Mid-track resumes skip handlePlay.
+      if (needsGate) {
+        const result = await handlePlay(currentTrack)
+        if (!result.allowed) {
+          setError(result.error || 'Cannot play track.')
+          return
+        }
+        setIsPaid(result.isPaid)
+        setError(null)
+        setNeedsGate(false)
       }
-      setIsPaid(result.isPaid)
-      setError(null)
     }
     setIsPlaying(!isPlaying)
+  }
+
+  // When the track ends, the next play should re-gate (and re-pay).
+  const onAudioEnded = () => {
+    setIsPlaying(false)
+    setNeedsGate(true)
   }
 
   return (
@@ -50,7 +66,7 @@ export function PlayerBar() {
       <audio
         ref={audioRef}
         src={currentTrack.audioUrl}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={onAudioEnded}
         preload="auto"
       />
 
